@@ -8,7 +8,52 @@
 
 //  getTextFile();
 
-function getJSONFile() {
-    fetch("users.json").then((response)=> response.json()).then((data) => console.log(data));
+// function getJSONFile() {
+//     fetch("users.json").then((response)=> response.json())
+//     .then((data) => data.map((user) => console.log(user.name,user.department,user.salary)))
+//     .catch((error) => console.error(error));
+// }
+// //response.json parse ederek json dosyasını javascript objesine çeviriyor
+// getJSONFile();
+
+
+class Request {
+    static get(url) {
+        return new Promise((resolve,reject)=> {
+            fetch(url)
+            .then((response)=> response.json())
+            .then((data) => resolve(data))
+            .catch((error) => reject(error));
+        });
+    }
+
+    static post(url,data) {
+        return new Promise((resolve,reject)=> {
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data),  
+                })
+            .then((response)=> response.json())
+            .then((data) => resolve(data))
+            .catch((error) => reject(error));
+        });
+    }
+
+        static put(url,data) {
+        return new Promise((resolve,reject)=> {
+            fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data),  
+                })
+            .then((response)=> response.json())
+            .then((data) => resolve(data))
+            .catch((error) => reject(error));
+        });
+    }
 }
-getJSONFile();
