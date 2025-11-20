@@ -27,7 +27,7 @@ class Request {
         });
     }
 
-    static post(url,data) {
+    static post(url,data) { // post datayı yükler
         return new Promise((resolve,reject)=> {
             fetch(url, {
                 method: "POST",
@@ -42,7 +42,7 @@ class Request {
         });
     }
 
-        static put(url,data) {
+        static put(url,data) {  // id verip zaten olan datayı update
         return new Promise((resolve,reject)=> {
             fetch(url, {
                 method: "PUT",
@@ -56,4 +56,42 @@ class Request {
             .catch((error) => reject(error));
         });
     }
+
+    static delete(url) {  //delete de header,body,data göndermeye gerek yok
+        return new Promise((resolve,reject)=> {
+            fetch(url, {
+                method: "DELETE",
+                })
+            .then((response)=> response.json())
+            .then((data) => resolve("veri silme işlemi başarılı")) // resolve da data olmayacağı için mesaj yazdırdım
+            .catch((error) => reject(error, "Veri silme işlemi başarısız"));
+        });
+    }
 }
+
+// Request.get("https://jsonplaceholder.typicode.com/posts").then((data)=>
+//    data.map((post)=> console.log(post.title))
+// )
+// .catch((error)=> console.log(error));
+
+
+// Request.post("https://jsonplaceholder.typicode.com/posts", {
+//     userId:234567,
+//     title: "İpek gözlek"
+// })
+// .then((data)=> console.log(data))
+// .catch((error)=> console.log(error));
+
+
+// Request.put("https://jsonplaceholder.typicode.com/posts/1", {
+//     userId:2,
+//     title: "Cem Sertel",
+//     body: "loremmmmm"
+// })
+//   .then((data) => console.log(data))
+//   .catch((error) => console.log(error));
+
+//   Request.delete("https://jsonplaceholder.typicode.com/posts/1") //sadece url ve url ye ek id yi yazıyorum delete de
+//   .then((data) => console.log(data))
+//   .catch((error) => console.log(error));
+
